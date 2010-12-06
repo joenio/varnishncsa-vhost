@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+=head1 NAME
+
+convert-old-logs - read apache logs in 'combined' format and convert to 'vhost_combined'
+
+=head1 SYNOPSIS
+
+    $ convert-old-logs [oldlogfiles]
+
+=head1 DESCRIPTION
+
+Print results to STDOUT.
+
+=cut
+
+while (<>) {
+   # print actual line more host at begining
+   if (m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)}) {
+      print "$1 $_";
+   }
+   else {
+      print "$_";
+   }
+}
+
+=head1 COPYRIGHT
+
+GPL2+
+
+=head1 AUTHOR
+
+Joenio Costa <joenio at colivre.coop.br>

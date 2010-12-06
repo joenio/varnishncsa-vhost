@@ -19,6 +19,11 @@ This simple script uses varnishncsa tool to provide a way to store varnish logs
 with vhost, cause varnish by default until version 2.1.5 not allow to customize
 log formats.
 
+The output produced by this wrapper is the as 'combined' from Apache LogFormat
+plus virtualhost. See apache config below as example used by me.
+
+LogFormat "%v %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+
 =head1 OPTIONS
 
 All options accepted by varnishncsa are accepted from varnishncsa-vhost,
@@ -56,9 +61,14 @@ if ($opts{'w'}) {
 }
 open (COMMAND, "varnishncsa @ARGV | ") or die "Could not open varnishncsa: $!\n";
 while (<COMMAND>) {
-   # print actual line more host at begining
-   m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)};
-   print "$1 $_";
+   if (m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)}) {
+      # print actual line plus host at begining
+      print "$1 $_";
+   }
+   else {
+      # print actual line without any modification
+      print "$_";
+   }
 }
 close COMMAND;
 close STDOUT;

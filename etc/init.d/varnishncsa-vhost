@@ -13,11 +13,12 @@
 # Source function library
 . /lib/lsb/init-functions
 
-NAME=varnishncsa-vhost
+NAME=varnishncsa
 DESC="HTTP accelerator log deamon"
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/bin/$NAME
-PIDFILE=/var/run/$NAME/$NAME.pid
+WRAPPER=/usr/bin/$NAME-vhost
+PIDFILE=/var/run/$NAME-vhost/$NAME.pid
 LOGFILE=/var/log/varnish/varnishncsa-vhost.log
 USER=varnishlog
 
@@ -33,16 +34,16 @@ if [ -z "${VARNISHNCSA_ENABLED}" ] || \
   exit 0;
 fi
 
-test -x $DAEMON || exit 0
+test -x $WRAPPER || exit 0
 
-DAEMON_OPTS="-a -w ${LOGFILE} -D -- -c -P $PIDFILE"
+DAEMON_OPTS="-a -w ${LOGFILE} -D -- -P $PIDFILE -c"
 
 start_varnishncsa() {
     output=$(/bin/tempfile -s.varnish)
-    log_daemon_msg "Starting $DESC" "$NAME"
+    log_daemon_msg "Starting $DESC" "$NAME-vhost"
     create_pid_directory
     if start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
-        --chuid $USER --exec ${DAEMON} -- ${DAEMON_OPTS} \
+        --chuid $USER --exec ${WRAPPER} -- ${DAEMON_OPTS} \
         > ${output} 2>&1; then
 	log_end_msg 0
     else
@@ -54,7 +55,7 @@ start_varnishncsa() {
 }
 
 stop_varnishncsa(){
-    log_daemon_msg "Stopping $DESC" "$NAME"
+    log_daemon_msg "Stopping $DESC" "$NAME-vhost"
     if start-stop-daemon --stop --quiet --pidfile $PIDFILE \
         --retry 10 --exec $DAEMON; then
 	log_end_msg 0
@@ -64,7 +65,7 @@ stop_varnishncsa(){
 }
 
 reload_varnishncsa(){
-    log_daemon_msg "Reloading $DESC" "$NAME"
+    log_daemon_msg "Reloading $DESC" "$NAME-vhost"
     if kill -HUP $(cat $PIDFILE) >/dev/null 2>&1; then
 	log_end_msg 0
     else
@@ -74,7 +75,7 @@ reload_varnishncsa(){
 }
 
 status_varnishncsa(){
-    status_of_proc -p "${PIDFILE}" "${DAEMON}" "${NAME}"
+    status_of_proc -p "${PIDFILE}" "${DAEMON}" "${NAME}-vhost"
 }
 
 create_pid_directory() {

@@ -43,8 +43,7 @@ our %opts;
 getopts('aw:D', \%opts);
 
 if ($opts{'D'}) {
-   print "rodar como daemon\n";
-   Proc::Daemon::Init();
+   Proc::Daemon::Init() && exit;
 }
 
 if ($opts{'w'}) {

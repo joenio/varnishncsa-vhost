@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Getopt::Std;
+use Proc::Daemon;
+$| = 1;
+
+=head1 NAME
+
+varnishncsa-vhost - wrapper around varnishncsa tool to save varnish logs with virtualhost
+
+=head1 SYNOPSIS
+
+    $ varnishncsa-vhost [options] -- [varnishncsa-options]
+
+=head1 DESCRIPTION
+
+This simple script uses varnishncsa tool to provide a way to store varnish logs
+with vhost, cause varnish by default until version 2.1.5 not allow to customize
+log formats.
+
+=head1 OPTIONS
+
+All options accepted by varnishncsa are accepted from varnishncsa-vhost,
+options below are handled by varnishncsa-vhost, all others are directly passed
+to varnishncsa and should be passed after '--' in command line.
+
+=head2 -a
+
+See varnishncsa manpage.
+
+=head2 -D
+
+See varnishncsa manpage.
+
+=head2 -w logfile
+
+See varnishncsa manpage.
+
+=cut
+
+our %opts;
+getopts('aw:D', \%opts);
+
+if ($opts{'D'}) {
+   print "rodar como daemon\n";
+   Proc::Daemon::Init();
+}
+
+if ($opts{'w'}) {
+   if ($opts{'a'}) {
+      open (STDOUT, '+>', $opts{'w'}) or die "Could not open logfile $opts{w}: $!\n";
+   }
+   else {
+      open (STDOUT, '>', $opts{'w'}) or die "Could not open logfile $opts{w}: $!\n";
+   }
+}
+open (COMMAND, "varnishncsa @ARGV | ") or die "Could not open varnishncsa: $!\n";
+while (<COMMAND>) {
+   # print actual line more host at begining
+   m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)};
+   print "$1 $_";
+}
+close COMMAND;
+close STDOUT;
+
+=head1 COPYRIGHT
+
+GPL2+
+
+=head1 AUTHOR
+
+Joenio Costa <joenio at colivre.coop.br>

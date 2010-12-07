@@ -23,8 +23,8 @@ LOGFILE=/var/log/varnish/varnishncsa-vhost.log
 USER=varnishlog
 
 # Include defaults if available
-if [ -f /etc/default/$NAME ] ; then
-        . /etc/default/$NAME
+if [ -f /etc/default/$NAME-vhost ] ; then
+        . /etc/default/$NAME-vhost
 fi
 
 # If unset, or set to "0" or "no", exit

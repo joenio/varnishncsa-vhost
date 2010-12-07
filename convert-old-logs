@@ -18,7 +18,7 @@ Print results to STDOUT.
 
 while (<>) {
    # print actual line more host at begining
-   if (m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)}) {
+   if (m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)}o) {
       print "$1 $_";
    }
    else {

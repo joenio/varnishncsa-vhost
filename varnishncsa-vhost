@@ -61,7 +61,7 @@ if ($opts{'w'}) {
 }
 open (COMMAND, "varnishncsa @ARGV | ") or die "Could not open varnishncsa: $!\n";
 while (<COMMAND>) {
-   if (m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)}) {
+   if (m{(?:GET|POST|HEAD|PUT|DELETE|TRACE|CONNECT) https?://([^/?#]+)}o) {
       # print actual line plus host at begining
       print "$1 $_";
    }

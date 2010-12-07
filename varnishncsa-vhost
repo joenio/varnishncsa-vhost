@@ -4,6 +4,7 @@ use warnings;
 use Getopt::Std;
 use Proc::Daemon;
 $| = 1;
+our $VERSION = "0.01";
 
 =head1 NAME
 

@@ -7,7 +7,7 @@
   missingok
   postrotate
     if /usr/bin/pgrep -P 1 -f varnishncsa-vhost >/dev/null; then
-      /usr/sbin/invoke-rc.d varnishncsa-vhost reload > /dev/null
+      /usr/sbin/invoke-rc.d varnishncsa-vhost restart > /dev/null
     fi
   endscript
 }

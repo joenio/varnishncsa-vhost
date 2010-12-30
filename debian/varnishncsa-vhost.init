@@ -82,12 +82,12 @@ case "$1" in
     status)
         status_varnishncsa
 	;;
-    restart)
+    restart|force-reload)
 	$0 stop
 	$0 start
         ;;
     *)
-        log_success_msg "Usage: $0 {start|stop|restart|status}"
+        log_success_msg "Usage: $0 {start|stop|restart|force-reload|status}"
         exit 1
         ;;
 esac

@@ -8,13 +8,21 @@
 
 build: 
 	dh_testdir
-	dh_testroot
-	dh_prep
 	perldoc -d $(CURDIR)/varnishncsa-vhost.1 -o nroff $(CURDIR)/varnishncsa-vhost
 
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean $(CURDIR)/varnishncsa-vhost.1
+	dh_prep
+
 install: 
+	dh_testdir
+	dh_testroot
 	dh_installdirs
-	cp -f $(CURDIR)/varnishncsa-vhost $(CURDIR)/debian/varnishncsa-vhost/usr/bin/
+	dh_install varnishncsa-vhost usr/bin/
+
+binary-indep: install
 	dh_installexamples
 	dh_installinit
 	dh_installman $(CURDIR)/varnishncsa-vhost.1
@@ -27,11 +35,5 @@ install:
 	dh_md5sums
 	dh_builddeb
 
-clean:
-	dh_testdir
-	dh_testroot
-	dh_prep
-	rm -f $(CURDIR)/varnishncsa-vhost.1
-
-binary: build install
-.PHONY: build clean binary install
+binary: binary-indep
+.PHONY: build clean binary-indep binary install

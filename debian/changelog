@@ -1,5 +1,5 @@
-varnishncsa-vhost (0.1) UNRELEASED; urgency=low
+varnishncsa-vhost (0.1-1) unstable; urgency=low
 
-  * Initial release.
+  * Initial release. (Closes: #608395)
 
  -- Joenio Costa <joenio@perl.org.br>  Mon, 06 Dec 2010 12:13:43 -0300

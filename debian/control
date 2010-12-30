@@ -1,7 +1,7 @@
 Source: varnishncsa-vhost
 Section: web
 Priority: optional
-Maintainer: Joenio Costa <joenio@colivre.coop.br>
+Maintainer: Joenio Costa <joenio@perl.org.br>
 Build-Depends-Indep: debhelper (>= 4.0.0)
 Standards-Version: 3.6.1.0
 

@@ -1,3 +1,37 @@
 #!/usr/bin/make -f
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/autotools.mk
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+build: 
+	dh_testdir
+	dh_testroot
+	dh_prep
+	perldoc -d $(CURDIR)/varnishncsa-vhost.1 -o nroff $(CURDIR)/varnishncsa-vhost
+
+install: 
+	dh_installdirs
+	cp -f $(CURDIR)/varnishncsa-vhost $(CURDIR)/debian/varnishncsa-vhost/usr/bin/
+	dh_installexamples
+	dh_installinit
+	dh_installman $(CURDIR)/varnishncsa-vhost.1
+	dh_installdocs
+	dh_installchangelogs
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_prep
+	rm -f $(CURDIR)/varnishncsa-vhost.1
+
+binary: build install
+.PHONY: build clean binary install

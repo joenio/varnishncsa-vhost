@@ -54,7 +54,7 @@ if ($opts{'D'}) {
 
 if ($opts{'w'}) {
    if ($opts{'a'}) {
-      open (STDOUT, '+>', $opts{'w'}) or die "Could not open logfile $opts{w}: $!\n";
+      open (STDOUT, '>>', $opts{'w'}) or die "Could not open logfile $opts{w}: $!\n";
    }
    else {
       open (STDOUT, '>', $opts{'w'}) or die "Could not open logfile $opts{w}: $!\n";

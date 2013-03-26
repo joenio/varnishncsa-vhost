@@ -79,11 +79,11 @@ close STDOUT;
 
 =head1 AUTHOR
 
-Joenio Costa <joenio at perl.org.br>
+Joenio Costa <joenio at colivre.coop.br>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2010 Colivre
+Copyright (c) 2010-2013 Colivre
 
 http://www.colivre.coop.br
 

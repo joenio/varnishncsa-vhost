@@ -1,16 +1,17 @@
 Source: varnishncsa-vhost
 Section: web
 Priority: optional
-Maintainer: Joenio Costa <joenio@perl.org.br>
-Build-Depends: debhelper (>= 7)
+Maintainer: Joenio Costa <joenio@colivre.coop.br>
+Build-Depends: debhelper (>= 8)
+Build-Depends-Indep: perl
 Standards-Version: 3.9.4
+Vcs-Git: git://gitorious.org/varnisnncsa-vhost/varnisnncsa-vhost.git
+Vcs-Browser: http://gitorious.org/varnisnncsa-vhost/varnisnncsa-vhost/trees
 Homepage: http://gitorious.org/varnisnncsa-vhost
-#Vcs-Git: git://git.debian.org/collab-maint/varnishncsa-vhost.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/varnishncsa-vhost.git;a=summary
 
 Package: varnishncsa-vhost
 Architecture: all
-Depends: ${misc:Depends}, varnish, perl, libproc-daemon-perl
+Depends: ${misc:Depends}, ${perl:Depends}, varnish, libproc-daemon-perl
 Description: Wrapper around 'varnishncsa' tool to save varnish logs with virtualhost
  This simple script uses varnishncsa tool to provide a way to store varnish logs
  with vhost, cause varnish by default until version 2.1.5 not allow to customize

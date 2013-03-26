@@ -45,6 +45,9 @@ See varnishncsa manpage.
 
 =cut
 
+# changes proccess name showed by `ps` (see perldoc perlvar)
+$0 = "varnishncsa-vhost @ARGV";
+
 our %opts;
 getopts('aw:D', \%opts);
 

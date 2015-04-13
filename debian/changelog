@@ -3,7 +3,7 @@ varnishncsa-vhost (0.02-1) unstable; urgency=low
   * Hide 'perl' from proccess name showed by `ps`
   * Fix Bug #1160101
 
- -- Joenio Costa <joenio@colivre.coop.br>  Wed, 25 Mar 2013 12:31:56 -0300
+ -- Joenio Costa <joenio@colivre.coop.br>  Mon, 25 Mar 2013 12:31:56 -0300
 
 varnishncsa-vhost (0.01-1) unstable; urgency=low
 

@@ -5,9 +5,9 @@ Maintainer: Joenio Costa <joenio@colivre.coop.br>
 Build-Depends: debhelper (>= 8)
 Build-Depends-Indep: perl
 Standards-Version: 3.9.4
-Vcs-Git: git://gitorious.org/varnisnncsa-vhost/varnisnncsa-vhost.git
-Vcs-Browser: http://gitorious.org/varnisnncsa-vhost/varnisnncsa-vhost/trees
-Homepage: http://gitorious.org/varnisnncsa-vhost
+Vcs-Git: http://github.com/joenio/varnishncsa-vhost.git
+Vcs-Browser: http://github.com/joenio/varnishncsa-vhost
+Homepage: http://github.com/joenio/varnishncsa-vhost
 
 Package: varnishncsa-vhost
 Architecture: all
